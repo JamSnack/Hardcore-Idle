@@ -74,7 +74,7 @@
   "nineSlice": null,
   "parent": {
     "name": "Fortitude",
-    "path": "folders/Sprites/Fortitude.yy",
+    "path": "folders/Sprites/Menu_Section 1/Fortitude.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_fortitiude_heart",

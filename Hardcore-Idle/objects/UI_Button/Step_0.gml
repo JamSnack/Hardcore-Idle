@@ -1,7 +1,7 @@
 /// @description Check for interaction
 
 //Visibility
-visible = (gameControl.menu_section == menu_section || (gameControl.menu_section != MENU.main && menu_section == MENU.not_main) || (gameControl.inventory_open && menu_section == MENU.inventory)) ? true : false;
+visible = (menu_section_2_button == false && (gameControl.menu_section == menu_section || (gameControl.menu_section != MENU.main && menu_section == MENU.not_main) || (gameControl.inventory_open && menu_section == MENU.inventory))) || (menu_section_2_button == true && (gameControl.menu_section_2 == menu_section)) ? true : false;
 
 if (!visible || click_delay > 0)
 {

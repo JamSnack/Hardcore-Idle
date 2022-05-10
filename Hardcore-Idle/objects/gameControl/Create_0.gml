@@ -1,7 +1,7 @@
 /// @description Init
 
 //- init skills
-movement_points_max = 1;
+movement_points_max = 10;
 movement_points = movement_points_max;
 movement_points_marble_rate = 0.01;
 movement_points_marble_speed = 0.1;
@@ -75,6 +75,7 @@ enum MENU
 }
 
 menu_section = MENU.main;
+menu_section_2 = MENU.main;
 
 cursor_text = "";
 
@@ -110,13 +111,14 @@ function give_xp(amt)
 	}
 }
 
-function create_item(name, amt, tooltip, sprite)
+/*function create_item(name, amt, tooltip, sprite, rarity)
 {
 	var _item = {
 		name : name,
 		amt: amt,
 		tooltip : tooltip,
-		sprite : sprite
+		sprite : sprite,
+		rarity : rarity
 	}
 	
 	return _item;
@@ -160,5 +162,11 @@ function add_item(item_struct)
 		global.inventory[| _result].amt += item_struct.amt;
 	}
 }
+
+function drop_item(x, y, item_struct)
+{
+	var _item = instance_create_layer(x, y, "UI_Effects", efct_item);
+	_item.item = item_struct;
+}*/
 
 //give_xp(1000);

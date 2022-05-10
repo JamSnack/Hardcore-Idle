@@ -78,7 +78,7 @@
   "nineSlice": null,
   "parent": {
     "name": "Agility",
-    "path": "folders/Sprites/Agility.yy",
+    "path": "folders/Sprites/Menu_Section 1/Agility.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_button_agility_clicker",

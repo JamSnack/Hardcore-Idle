@@ -11,3 +11,5 @@ liquid_drain_delay = 0;
 drawn_filling = 0;
 
 liquid_surface = noone;
+
+hold_to_click = true;
