@@ -4,7 +4,13 @@
 // Inherit the parent event
 event_inherited();
 
+locked = true;
+unlocked_at = 2;
+
 function to_string()
 {
-	return "Fortitude";	
+	
+	if (locked)
+		return "Fortitude\nUnlocked at Level " + string(unlocked_at) + ".";
+	else return "Fortitude";	
 }

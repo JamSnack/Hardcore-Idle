@@ -12,7 +12,14 @@ if (!visible || click_delay > 0)
 var mouse_gui_x = device_mouse_x_to_gui(0);
 var mouse_gui_y = device_mouse_y_to_gui(0);
 
-if (point_in_rectangle(mouse_gui_x, mouse_gui_y, x, y, x+sprite_width, y+sprite_height))
+if (locked)
+{
+	image_index = 3;
+	
+	if (gameControl.level >= unlocked_at)
+		locked = false;
+}
+else if (point_in_rectangle(mouse_gui_x, mouse_gui_y, x, y, x+sprite_width, y+sprite_height))
 {
 	image_index = 1; //Highlighted frame
 	
