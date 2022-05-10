@@ -1,0 +1,1 @@
+upgrade = "movement_points_max";
