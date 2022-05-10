@@ -6,8 +6,10 @@ movement_points = movement_points_max;
 movement_points_marble_rate = 0.01;
 movement_points_marble_speed = 0.1;
 movement_points_auto = 0;
-health_points_max = 1;
-health_points = health_points_max;
+health_points_max = 10;
+health_points_rate = 0.1;
+health_points_speed = 180;
+health_points = 1;
 damage_points = 1; //how much damage we doin'?
 
 //- init levels and XP
@@ -53,7 +55,8 @@ enum MENU
 {
 	main,
 	not_main,
-	skill_agility
+	skill_agility,
+	skill_fortitude
 }
 
 menu_section = MENU.main;
@@ -88,6 +91,6 @@ function give_xp(amt)
 		skill_points += 1;
 		
 		//level-up effects
-		create_pop_text(obj_player.x, obj_player.y-10, c_yellow, c_black, 1, "Level Up!");
+		create_pop_text(obj_player.x, obj_player.y, c_yellow, c_black, 1, "Level Up!");
 	}
 }

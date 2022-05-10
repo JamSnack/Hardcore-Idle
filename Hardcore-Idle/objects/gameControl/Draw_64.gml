@@ -30,6 +30,14 @@ switch (menu_section)
 		draw_text_outlined(780, 91, c_black, c_white, "Max Action Points: " + string(movement_points_max));
 	}
 	break;
+	
+	case MENU.skill_fortitude:
+	{
+		draw_text_outlined(780, 40, c_black, c_white, "Fill Value: " + string(health_points_rate));
+		draw_text_outlined(780, 57, c_black, c_white, "Regeneration Delay: " + string(health_points_speed));
+		draw_text_outlined(780, 91, c_black, c_white, "Max Health: " + string(health_points_max));
+	}
+	break;
 }
 
 //Draw tooltip

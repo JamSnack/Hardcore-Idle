@@ -179,6 +179,17 @@ else if (instance_exists(UI_Button))
 }
 
 
+//Control health
+if (health_points <= 0)
+{
+	//do death stuff later
+	health_points = 0;
+}
+else if (health_points > health_points_max)
+{
+	//cap off
+	health_points = health_points_max;	
+}
 	
 //------IDLE STUFF-------
 // - movement points
