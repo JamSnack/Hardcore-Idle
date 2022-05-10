@@ -2,3 +2,10 @@
 // You can write your code in this editor
 event_inherited();
 menu_section = MENU.skill_agility;
+
+text = "";
+
+function to_string()
+{	
+	return text;
+}

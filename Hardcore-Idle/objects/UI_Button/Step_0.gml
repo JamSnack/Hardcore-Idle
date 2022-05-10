@@ -1,7 +1,7 @@
 /// @description Check for interaction
 
 //Visibility
-visible = (gameControl.menu_section == menu_section || (gameControl.menu_section != MENU.main && menu_section == MENU.not_main)) ? true : false;
+visible = (gameControl.menu_section == menu_section || (gameControl.menu_section != MENU.main && menu_section == MENU.not_main) || (gameControl.inventory_open && menu_section == MENU.inventory)) ? true : false;
 
 if (!visible || click_delay > 0)
 {
@@ -25,14 +25,25 @@ else if (point_in_rectangle(mouse_gui_x, mouse_gui_y, x, y, x+sprite_width, y+sp
 	
 	window_set_cursor(cr_drag);
 	
-	if (mouse_check_button(mb_left))
+	if (hold_to_click)
 	{
-		image_index = 2; //Pressed frame
+		if (mouse_check_button(mb_left))
+		{
+			image_index = 2; //Pressed frame
+			event_user(0);
+		}
 	}
-	else if (mouse_check_button_released(mb_left))
+	else
 	{
-		//Execute the on_interaction event.
-		event_user(0);
+		if (mouse_check_button(mb_left))
+		{
+			image_index = 2; //Pressed frame
+		}
+		else if (mouse_check_button_released(mb_left))
+		{
+			//Execute the on_interaction event.
+			event_user(0);
+		}
 	}
 }
 else image_index = 0; //Normal frame

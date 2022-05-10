@@ -13,3 +13,4 @@ function to_string()
 
 locked = false;
 unlocked_at = 2; //What level is this unlocked at?
+hold_to_click = false;

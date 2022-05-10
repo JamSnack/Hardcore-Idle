@@ -26,14 +26,14 @@ function draw_text_outlined_transformed(x, y, outline_color, text_color, text, x
 	//Outline  
 	draw_set_color(outline_color);  
 	
-	draw_text_transformed(x+1, y+1, text, xscale, yscale, angle);  
-	draw_text_transformed(x-1, y-1, text, xscale, yscale, angle);    
-	draw_text_transformed(x,   y+1, text, xscale, yscale, angle);    
-	draw_text_transformed(x+1, y,   text, xscale, yscale, angle);   
-	draw_text_transformed(x,   y-1, text, xscale, yscale, angle);    
-	draw_text_transformed(x-1, y,   text, xscale, yscale, angle);   
-	draw_text_transformed(x-1, y+1, text, xscale, yscale, angle);    
-	draw_text_transformed(x+1, y-1, text, xscale, yscale, angle);    
+	draw_text_transformed(x+xscale, y+yscale, text, xscale, yscale, angle);  
+	draw_text_transformed(x-xscale, y-yscale, text, xscale, yscale, angle);    
+	draw_text_transformed(x,   y+yscale, text, xscale, yscale, angle);    
+	draw_text_transformed(x+xscale, y,   text, xscale, yscale, angle);   
+	draw_text_transformed(x,   y-yscale, text, xscale, yscale, angle);    
+	draw_text_transformed(x-xscale, y,   text, xscale, yscale, angle);   
+	draw_text_transformed(x-xscale, y+yscale, text, xscale, yscale, angle);    
+	draw_text_transformed(x+xscale, y-yscale, text, xscale, yscale, angle);    
   
 	//Text  
 	draw_set_color(text_color);  
@@ -42,7 +42,7 @@ function draw_text_outlined_transformed(x, y, outline_color, text_color, text, x
 
 function create_pop_text(x, y, color, outline_color, scale, text)
 {
-	var _pop = instance_create_layer(x, y, "Instances", efct_pop_text);
+	var _pop = instance_create_layer(x, y, "UI_Effects", efct_pop_text);
 	_pop.color = color;
 	_pop.outline_color = outline_color;
 	_pop.scale_target = scale;

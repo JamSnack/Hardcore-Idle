@@ -15,5 +15,7 @@ for (var _i = 0; _i < ds_list_size(balls); _i++)
 		
 		if (visible == true)
 			create_pop_text(x - sprite_width/2 + irandom(sprite_width), y - sprite_height/2 + irandom(sprite_height), c_green, c_black, 1, "+" + string(_ball.val));
+			
+		delete _ball;
 	}
 }

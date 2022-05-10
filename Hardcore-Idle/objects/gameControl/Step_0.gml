@@ -18,11 +18,12 @@ switch (game_turn)
 		game_turn_amt++;
 		target_color = c_black;
 		
+		
 		//- can we move?
 		var _d = point_distance(obj_player.x, obj_player.y, x_mouse, y_mouse);
 		var _col = collision_point(x_mouse, y_mouse, OBSTA, false, true);
 		
-		if (movement_points >= 1 && _d <= cell_size && _d > 1 && point_in_rectangle(x_mouse, y_mouse, game_map_x1, game_map_y1, game_map_x2, game_map_y2) && _col == noone)
+		if (!inventory_open && movement_points >= 1 && _d <= cell_size && _d > 1 && point_in_rectangle(x_mouse, y_mouse, game_map_x1, game_map_y1, game_map_x2, game_map_y2) && _col == noone)
 		{
 			can_move = true;
 		}
@@ -190,6 +191,13 @@ else if (health_points > health_points_max)
 	//cap off
 	health_points = health_points_max;	
 }
+
+//-----inventory Animation-----
+if (inventory_open && inventory_animation < 1)
+	inventory_animation += 0.04;
+else if (inventory_open == false && inventory_animation > 0)
+	inventory_animation -= 0.04;
+
 	
 //------IDLE STUFF-------
 // - movement points

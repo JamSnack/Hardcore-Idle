@@ -9,5 +9,5 @@ liquid_filling += gameControl.health_points_rate;
 if (liquid_filling > liquid_filling_max)
 	liquid_filling = liquid_filling_max;
 	
-show_debug_message(string(liquid_filling));
+liquid_filling_max = gameControl.health_points_liquid_max;
 
