@@ -21,7 +21,7 @@ if (speed > 10)
 motion_add(dir, fly_speed);
 
 //Add item
-if (distance_to_object(obj_button_inventory) <= 32)
+if (distance_to_object(obj_button_inventory) <= 32 || time > room_speed*5)
 {
 	//add
 	add_item(item);
@@ -31,3 +31,5 @@ if (distance_to_object(obj_button_inventory) <= 32)
 	//destroy
 	instance_destroy();
 }
+
+time++;

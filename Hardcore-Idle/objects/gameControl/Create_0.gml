@@ -1,7 +1,8 @@
 /// @description Init
+show_debug_overlay(true);
 
 //- init skills
-movement_points_max = 10;
+movement_points_max = 1;
 movement_points = movement_points_max;
 movement_points_marble_rate = 0.01;
 movement_points_marble_speed = 0.1;
@@ -22,7 +23,7 @@ skill_points = 0;
 
 //- init inventory
 global.inventory = ds_list_create();
-inventory_open = true;
+inventory_open = false;
 inventory_animation = 0; //approaches 1 or 0 when inventory is opened or shuts
 selected_slot = -1;
 
@@ -137,24 +138,30 @@ function give_xp(amt)
 
 slot_size = sprite_get_width(spr_slot);
 
-function draw_equip_slot(equip_struct, x, y, alpha, image_index, scale)
+function draw_equip_slot(equip_struct, x, y, alpha, image_index, scale, type)
 {	
+	var _ct = type_to_string(type) + " Slot";; //cursor text type
+	var _cd = "Empty"; //Cursor text item description
 	
 	//Draw the slot
 	if (equip_struct != -1)
 	{ 
 		draw_sprite_ext(spr_slot, equip_struct.rarity, x, y, scale, scale, 0, c_white, alpha);
 		draw_sprite(equip_struct.sprite, 0, x + (slot_size/2)*scale, y + (slot_size/2)*scale);
+		
+		_cd = equip_struct.to_string();
 	}
 	else
 	{
-		draw_sprite_ext(spr_slot, 0, x, y, scale, scale, 0, c_white, alpha);	
+		draw_sprite_ext(spr_slot, 0, x, y, scale, scale, 0, c_white, alpha);
 	}
 	
 	//Draw the highlight
 	if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), x, y, x + (slot_size)*scale, y + (slot_size)*scale))
 	{
 		draw_sprite_ext(spr_highlight, 0, x, y, scale, scale, 0, c_white, 1);
+		
+		cursor_text = _ct + "\n" + _cd;
 	}
 }
 
@@ -181,7 +188,6 @@ function check_equip_slot(equip_struct, x, y, scale, type)
 	
 	return return_this;
 }
-
 
 /*function create_item(name, amt, tooltip, sprite, rarity)
 {

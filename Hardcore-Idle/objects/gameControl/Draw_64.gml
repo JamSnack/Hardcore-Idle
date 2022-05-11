@@ -57,17 +57,17 @@ if (inventory_open)
 	var _x2 = _x1 + 290;
 	var _x3 = (_x1 + _x2)/2;
 	
-	draw_equip_slot(equip_melee, _x1, 500, _a, 0, _scale);
-	draw_equip_slot(equip_gloves, _x1, 555, _a, 0, _scale);
-	draw_equip_slot(equip_necklace, _x1, 610, _a, 0, _scale);
+	draw_equip_slot(equip_melee, _x1, 500, _a, 0, _scale, ITEM_TYPE.wep_melee);
+	draw_equip_slot(equip_gloves, _x1, 555, _a, 0, _scale, ITEM_TYPE.gloves);
+	draw_equip_slot(equip_necklace, _x1, 610, _a, 0, _scale, ITEM_TYPE.necklace);
 	
-	draw_equip_slot(equip_ranged, _x2, 500, _a, 0, _scale);
-	draw_equip_slot(equip_ring, _x2, 555, _a, 0, _scale);
-	draw_equip_slot(equip_shoes, _x2, 610, _a, 0, _scale);
+	draw_equip_slot(equip_ranged, _x2, 500, _a, 0, _scale, ITEM_TYPE.wep_ranged);
+	draw_equip_slot(equip_ring, _x2, 555, _a, 0, _scale, ITEM_TYPE.ring);
+	draw_equip_slot(equip_shoes, _x2, 610, _a, 0, _scale, ITEM_TYPE.shoes);
 
-	draw_equip_slot(equip_helmet, _x3, 500, _a, 0, _scale);
+	draw_equip_slot(equip_helmet, _x3, 500, _a, 0, _scale, ITEM_TYPE.helmet);
 	draw_sprite_ext(spr_player, 0, _x3 + 24, 555 + 24, _scale, _scale, 0, c_white, _a);//Player (lol)d
-	draw_equip_slot(equip_chest, _x3, 610, _a, 0, _scale);
+	draw_equip_slot(equip_chest, _x3, 610, _a, 0, _scale, ITEM_TYPE.chest);
 	
 	//-- actual inventory part --
 	//Draw background
@@ -95,7 +95,7 @@ if (inventory_open)
 			var _item_sprite = _item.sprite;
 			
 			//slot
-			draw_sprite(spr_slot, 0, _x, _y);
+			draw_sprite(spr_slot, _item.rarity, _x, _y);
 			
 			//highlight (case for selected slots)
 			if (selected_slot == _i)
@@ -116,7 +116,7 @@ if (inventory_open)
 				//Apply tooltip
 				if (point_in_rectangle(mouse_x, mouse_y, _x, _y, _x + 32, _y + 32))
 				{
-					cursor_text = (_item.name + "\n" + _item.tooltip);
+					cursor_text = _item.to_string();
 				
 					//highlight (case for hovering)
 					if (selected_slot == -1)
