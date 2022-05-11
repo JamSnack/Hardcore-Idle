@@ -1,11 +1,12 @@
-function create_item(name, amt, tooltip, sprite, rarity)
+function create_item(name, amt, tooltip, sprite, rarity, type)
 {
 	var _item = {
 		name : name,
 		amt: amt,
 		tooltip : tooltip,
 		sprite : sprite,
-		rarity : rarity
+		rarity : rarity,
+		type : type
 	}
 	
 	return _item;

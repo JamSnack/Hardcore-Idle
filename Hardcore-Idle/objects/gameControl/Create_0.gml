@@ -23,7 +23,17 @@ skill_points = 0;
 //- init inventory
 global.inventory = ds_list_create();
 inventory_open = true;
-inventory_animation = 0; //approaches 1 or 0 when inventory is opened or shut
+inventory_animation = 0; //approaches 1 or 0 when inventory is opened or shuts
+selected_slot = -1;
+
+equip_melee = -1;
+equip_ranged = -1;
+equip_helmet = -1;
+equip_chest = -1;
+equip_gloves = -1;
+equip_ring = -1;
+equip_shoes = -1;
+equip_necklace = -1;
 
 enum ITEM_RARITY
 {
@@ -34,6 +44,19 @@ enum ITEM_RARITY
 	grand, //0.0001%
 	resplendent, //0.00001%
 	red //0%
+}
+
+enum ITEM_TYPE
+{
+	wep_ranged,
+	wep_melee,
+	helmet,
+	chest,
+	gloves,
+	ring,
+	shoes,
+	necklace,
+	none
 }
 
 //Game control stuff
@@ -110,6 +133,55 @@ function give_xp(amt)
 		create_pop_text(obj_player.x, obj_player.y, c_yellow, c_black, 1, "Level Up!");
 	}
 }
+
+
+slot_size = sprite_get_width(spr_slot);
+
+function draw_equip_slot(equip_struct, x, y, alpha, image_index, scale)
+{	
+	
+	//Draw the slot
+	if (equip_struct != -1)
+	{ 
+		draw_sprite_ext(spr_slot, equip_struct.rarity, x, y, scale, scale, 0, c_white, alpha);
+		draw_sprite(equip_struct.sprite, 0, x + (slot_size/2)*scale, y + (slot_size/2)*scale);
+	}
+	else
+	{
+		draw_sprite_ext(spr_slot, 0, x, y, scale, scale, 0, c_white, alpha);	
+	}
+	
+	//Draw the highlight
+	if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), x, y, x + (slot_size)*scale, y + (slot_size)*scale))
+	{
+		draw_sprite_ext(spr_highlight, 0, x, y, scale, scale, 0, c_white, 1);
+	}
+}
+
+function check_equip_slot(equip_struct, x, y, scale, type)
+{	
+	var return_this = equip_struct;
+	
+	//If an item is in the slot...
+
+	if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), x, y, x + (slot_size)*scale, y + (slot_size)*scale))
+	{
+		if (equip_struct != -1)
+		{ 
+			return_this = -1;
+		}
+		else if (selected_slot != -1)
+		{
+			var _ite = global.inventory[| selected_slot];
+			
+			if (_ite.type == type)
+				return_this = _ite;
+		}
+	}
+	
+	return return_this;
+}
+
 
 /*function create_item(name, amt, tooltip, sprite, rarity)
 {

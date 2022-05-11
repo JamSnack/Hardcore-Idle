@@ -22,6 +22,7 @@
     {"id":{"name":"spr_slot","path":"sprites/spr_slot/spr_slot.yy",},"order":13,},
     {"id":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},"order":3,},
     {"id":{"name":"spr_game_ui","path":"sprites/spr_game_ui/spr_game_ui.yy",},"order":4,},
+    {"id":{"name":"spr_highlight","path":"sprites/spr_highlight/spr_highlight.yy",},"order":16,},
     {"id":{"name":"UI_Generic","path":"objects/UI_Generic/UI_Generic.yy",},"order":3,},
     {"id":{"name":"spr_button_plus","path":"sprites/spr_button_plus/spr_button_plus.yy",},"order":10,},
     {"id":{"name":"obj_button_agility_clicker","path":"objects/obj_button_agility_clicker/obj_button_agility_clicker.yy",},"order":2,},

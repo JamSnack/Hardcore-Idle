@@ -179,6 +179,34 @@ else if (instance_exists(UI_Button))
 	else cursor_text = "";
 }
 
+//- cursor is holding an item logic
+if (inventory_open == false && selected_slot != -1)
+{
+	selected_slot = -1;
+}
+else if (mouse_check_button_released(mb_left))
+{
+	//did we place the item in an equipment slot?
+	var _x1 = game_map_x2 + 160;
+	var _x2 = _x1 + 290;
+	var _x3 = (_x1 + _x2)/2;
+	var _scale = 1.5;
+	
+	equip_melee =    check_equip_slot(equip_melee, _x1, 500, _scale, ITEM_TYPE.wep_melee);
+	equip_gloves =   check_equip_slot(equip_gloves, _x1, 555, _scale, ITEM_TYPE.gloves);
+	equip_necklace = check_equip_slot(equip_necklace, _x1, 610, _scale, ITEM_TYPE.necklace);
+	
+	equip_ranged =   check_equip_slot(equip_ranged, _x2, 500, _scale, ITEM_TYPE.wep_ranged);
+	equip_ring =     check_equip_slot(equip_ring, _x2, 555, _scale, ITEM_TYPE.ring);
+	equip_shoes =    check_equip_slot(equip_shoes, _x2, 610, _scale, ITEM_TYPE.shoes);
+	
+	equip_helmet =   check_equip_slot(equip_helmet, _x3, 500, _scale, ITEM_TYPE.helmet);
+	equip_chest =    check_equip_slot(equip_chest, _x3, 610, _scale, ITEM_TYPE.chest);
+	
+	selected_slot = -1;
+	
+}
+
 
 //Control health
 if (health_points <= 0)

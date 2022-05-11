@@ -44,8 +44,33 @@ switch (menu_section)
 //Draw inventory
 if (inventory_open)
 {
+	var _a = inventory_animation/1.3;
+	
+	draw_set_halign(fa_center);
+	draw_set_alpha(_a);
+	
+	//-- Draw equipment area --
+	draw_text_outlined_transformed(game_map_x2 + 320, 450, c_black, c_white, "Equipment", 2, 2, 0);
+	
+	var _scale = 1.5;
+	var _x1 = game_map_x2 + 160;
+	var _x2 = _x1 + 290;
+	var _x3 = (_x1 + _x2)/2;
+	
+	draw_equip_slot(equip_melee, _x1, 500, _a, 0, _scale);
+	draw_equip_slot(equip_gloves, _x1, 555, _a, 0, _scale);
+	draw_equip_slot(equip_necklace, _x1, 610, _a, 0, _scale);
+	
+	draw_equip_slot(equip_ranged, _x2, 500, _a, 0, _scale);
+	draw_equip_slot(equip_ring, _x2, 555, _a, 0, _scale);
+	draw_equip_slot(equip_shoes, _x2, 610, _a, 0, _scale);
+
+	draw_equip_slot(equip_helmet, _x3, 500, _a, 0, _scale);
+	draw_sprite_ext(spr_player, 0, _x3 + 24, 555 + 24, _scale, _scale, 0, c_white, _a);//Player (lol)d
+	draw_equip_slot(equip_chest, _x3, 610, _a, 0, _scale);
+	
+	//-- actual inventory part --
 	//Draw background
-	draw_set_alpha(inventory_animation/1.3);
 	draw_set_color(c_black);
 	draw_rectangle(game_map_x1, game_map_y1, game_map_x2, game_map_y2, false);
 	draw_set_alpha(inventory_animation);
@@ -69,14 +94,39 @@ if (inventory_open)
 			var _item = global.inventory[| _i];
 			var _item_sprite = _item.sprite;
 			
+			//slot
 			draw_sprite(spr_slot, 0, _x, _y);
-			draw_sprite(_item_sprite, 0, _x + 16, _y + 16);
-			draw_text_outlined_transformed(_x+25, _y+22, c_black, c_white, string(_item.amt), 0.7, 0.7, 0);
 			
-			//Apply tooltip
-			if (point_in_rectangle(mouse_x, mouse_y, _x, _y, _x + 32, _y + 32))
+			//highlight (case for selected slots)
+			if (selected_slot == _i)
 			{
-				cursor_text = (_item.name + "\n" + _item.tooltip);
+				draw_sprite(spr_highlight, 0, _x, _y);
+				
+				//sprite (cursor)
+				draw_sprite(_item_sprite, 0, mouse_x, mouse_y);
+			}
+			else
+			{
+				//sprite
+				draw_sprite(_item_sprite, 0, _x + 16, _y + 16);
+				
+				//amt
+				draw_text_outlined_transformed(_x+25, _y+22, c_black, c_white, string(_item.amt), 0.7, 0.7, 0);
+			
+				//Apply tooltip
+				if (point_in_rectangle(mouse_x, mouse_y, _x, _y, _x + 32, _y + 32))
+				{
+					cursor_text = (_item.name + "\n" + _item.tooltip);
+				
+					//highlight (case for hovering)
+					if (selected_slot == -1)
+						draw_sprite(spr_highlight, 0, _x, _y);
+					
+					if (mouse_check_button_pressed(mb_left))
+					{
+						selected_slot = _i;	
+					}
+				}
 			}
 		}
 	}
