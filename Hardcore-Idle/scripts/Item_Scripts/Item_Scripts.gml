@@ -7,6 +7,7 @@ function create_item(name, amt, tooltip, sprite, rarity, type)
 		sprite : sprite,
 		rarity : rarity,
 		type : type,
+		stats : ds_list_create(),
 		
 		to_string : function()
 		{
@@ -156,4 +157,9 @@ function type_to_string(type)
 		case ITEM_TYPE.ring: { return "Ring"; } break;
 		case ITEM_TYPE.shoes: { return "Shoes"; } break;
 	}	
+}
+
+function clear_slot()
+{
+	//Properly dispose of the contents of an inventory slot. For use inside gameControl.
 }

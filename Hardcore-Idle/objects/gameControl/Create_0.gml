@@ -186,6 +186,7 @@ function check_equip_slot(equip_struct, x, y, scale, type)
 		}
 	}
 	
+	delete equip_struct;
 	return return_this;
 }
 
