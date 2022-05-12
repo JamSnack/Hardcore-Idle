@@ -8,6 +8,7 @@ function create_item(name, amt, tooltip, sprite, rarity, type, stats)
 		rarity : rarity,
 		type : type,
 		stats : stats,
+		notify: true, //Used for inventory notifications.
 		
 		to_string : function()
 		{

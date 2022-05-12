@@ -97,7 +97,7 @@ if (inventory_open)
 			//slot
 			draw_sprite(spr_slot, _item.rarity, _x, _y);
 			
-			//highlight (case for selected slots)
+			//highlight (case for cursor selection)
 			if (selected_slot == _i)
 			{
 				draw_sprite(spr_highlight, 0, _x, _y);
@@ -112,6 +112,10 @@ if (inventory_open)
 				
 				//amt
 				draw_text_outlined_transformed(_x+25, _y+22, c_black, c_white, string(_item.amt), 0.7, 0.7, 0);
+				
+				//notification
+				if (_item.notify)
+					draw_sprite_ext(spr_notification, 0, _x + slot_size - 2, _y + slot_size - 2, 0.9, 0.9, 0, c_white, 1);
 			
 				//Apply tooltip
 				if (point_in_rectangle(mouse_x, mouse_y, _x, _y, _x + 32, _y + 32))
@@ -126,6 +130,9 @@ if (inventory_open)
 					{
 						selected_slot = _i;	
 					}
+					
+					//remove notification
+					_item.notify = false;
 				}
 			}
 		}
