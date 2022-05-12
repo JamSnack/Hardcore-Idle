@@ -15,7 +15,6 @@ switch (game_turn)
 	case TURN.player:
 	{
 		//It's the player's turn!
-		game_turn_amt++;
 		target_color = c_black;
 		
 		
@@ -103,6 +102,7 @@ switch (game_turn)
 		game_turn = TURN.player;
 		game_turn_enemy_index = 0;
 		game_turn_time = 20*room_speed;
+		game_turn_amt++;
 	}
 	break;
 }
@@ -205,6 +205,8 @@ else if (mouse_check_button_released(mb_left))
 	
 	selected_slot = -1;
 	
+	//Calculate stat bonuses
+	apply_stats();
 }
 
 
@@ -214,10 +216,10 @@ if (health_points <= 0)
 	//do death stuff later
 	health_points = 0;
 }
-else if (health_points > health_points_max)
+else if (health_points > health_points_max + bonus_health_points_max)
 {
 	//cap off
-	health_points = health_points_max;	
+	health_points = (health_points_max + bonus_health_points_max);	
 }
 
 //-----inventory Animation-----
@@ -229,7 +231,9 @@ else if (inventory_open == false && inventory_animation > 0)
 	
 //------IDLE STUFF-------
 // - movement points
-if (movement_points > movement_points_max) { movement_points = movement_points_max; }
+var mp_max = movement_points_max + bonus_movement_points_max;
+
+if (movement_points > mp_max) { movement_points = mp_max; }
 
 var is_tick = (game_turn == TURN.player && game_turn_time mod 60 == 0) ? true : false;
 

@@ -1,7 +1,7 @@
 /// @description Init
 show_debug_overlay(true);
 
-//- init skills
+//-- init skills
 movement_points_max = 1;
 movement_points = movement_points_max;
 movement_points_marble_rate = 0.01;
@@ -14,14 +14,29 @@ health_points_liquid_max = 1;
 health_points = 1;
 damage_points = 1; //how much damage we doin'?
 
-//- init levels and XP
+//- stat bonuses from equips
+function reset_bonuses()
+{
+	bonus_movement_points_max = 0; //
+	bonus_movement_points_marble_rate = 0; //
+	bonus_movement_points_marble_speed = 0; //
+
+	bonus_health_points_max = 0; //
+	bonus_health_points_rate = 0; //
+	bonus_health_points_speed = 0; //
+	bonus_health_points_liquid_max = 0; //
+}
+
+reset_bonuses();
+
+//-- init levels and XP
 xp = 0;
 xp_max = 8;
 level = 1;
 skill_points = 0;
 
 
-//- init inventory
+//-- init inventory
 global.inventory = ds_list_create();
 inventory_open = false;
 inventory_animation = 0; //approaches 1 or 0 when inventory is opened or shuts
@@ -182,7 +197,10 @@ function check_equip_slot(equip_struct, x, y, scale, type)
 			var _ite = global.inventory[| selected_slot];
 			
 			if (_ite.type == type)
+			{
+				//Return the data structure to use its data. We equipped the item!
 				return_this = _ite;
+			}
 		}
 	}
 	

@@ -1,10 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
-
 //Handle the liquid filling
 if (liquid_filling > 0 && liquid_drain_delay <= 0)
 {
-	var gains = gameControl.health_points_rate
+	var gains = gameControl.health_points_rate + gameControl.bonus_health_points_rate;
 	
 	//consume liquid filling
 	liquid_filling -= gains;
@@ -20,7 +19,7 @@ if (liquid_filling > 0 && liquid_drain_delay <= 0)
 		liquid_filling = 0;
 		
 	//delay
-	liquid_drain_delay = gameControl.health_points_speed;
+	liquid_drain_delay = gameControl.health_points_speed - gameControl.bonus_health_points_speed;
 }
 else liquid_drain_delay--;
 

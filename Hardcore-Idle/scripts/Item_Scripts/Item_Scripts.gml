@@ -1,5 +1,5 @@
-function create_item(name, amt, tooltip, sprite, rarity, type)
-{
+function create_item(name, amt, tooltip, sprite, rarity, type, stats)
+{	
 	var _item = {
 		name : name,
 		amt: amt,
@@ -7,11 +7,11 @@ function create_item(name, amt, tooltip, sprite, rarity, type)
 		sprite : sprite,
 		rarity : rarity,
 		type : type,
-		stats : ds_list_create(),
+		stats : stats,
 		
 		to_string : function()
 		{
-			return string(name) + "\n" + type_to_string(type) + "\n" + rarity_to_string(rarity) + "\n\n" + string(tooltip);	
+			return ( string(name) + "\n" + type_to_string(type) + "\n" + rarity_to_string(rarity) + "\n\n" + stats_to_string(stats));
 		}
 	}
 	
@@ -79,8 +79,65 @@ function generate_item()
 		default: { _name += (choose("Drake of ", "Snake Miner's ", "Average Joe's ", "The Logarithm of ") + type_to_string(_type) ); }
 	}
 	
+	//Stats
+	var _stats = ds_map_create();
+	var agil_pool = false;
+	var fort_pool = false;
+	var damage_pool = false;
+	
+	switch (_type)
+	{
+		case ITEM_TYPE.necklace:
+		case ITEM_TYPE.ring: { fort_pool = true; agil_pool = true; } break;
+		
+		case ITEM_TYPE.gloves:
+		case ITEM_TYPE.shoes: { agil_pool = true; } break;
+		
+		case ITEM_TYPE.helmet:
+		case ITEM_TYPE.chest: { fort_pool = true; } break;
+		
+		case ITEM_TYPE.wep_ranged: //In the future, make ranged weapons do ranged damage
+		case ITEM_TYPE.wep_melee: { damage_pool = true; } break;
+		default: { _sprite = choose(spr_helmet); } break;
+	}
+	
+	var _breaker = 0;
+	while( ds_map_size(_stats) < (_rarity+1) || _breaker > 10)
+	{	
+		_breaker++;
+		
+		if (damage_pool) { ds_map_add(_stats, "Damage", gameControl.game_turn_amt/4 + _rarity*gameControl.game_environment_difficulty); }
+		
+		if (agil_pool) 
+		{ 
+			var _sk = irandom(2);
+			
+			switch (_sk)
+			{
+				case 0: { ds_map_add(_stats, "Max Action Points", _rarity+1); } break;
+				case 1: { ds_map_add(_stats, "Marble Value", (_rarity+1)*0.01); } break;
+				case 2: { ds_map_add(_stats, "Marble Speed", (_rarity+1)*0.1); } break;
+			}
+		};
+		
+		if (fort_pool) 
+		{ 
+			var _sk = irandom(3);
+
+			switch (_sk)
+			{
+				case 0: { ds_map_add(_stats, "Max HP", _rarity+1) } break;
+				case 1: { ds_map_add(_stats, "Fill Amount", (_rarity+1)*0.01) } break;
+				case 2: { ds_map_add(_stats, "Regeneration Speed", (_rarity+1)*5) } break; //liquid drain speed
+				case 3: { ds_map_add(_stats, "Max Liquid", (_rarity+1)*0.01) } break;
+			}
+		};
+	}
+	
+	show_debug_message(string(ds_map_find_first(_stats)));
+	
 	//Blend it all together!
-	return create_item(_name, 1, "", _sprite, _rarity, _type);
+	return create_item(_name, 1, "", _sprite, _rarity, _type, _stats);
 }
 
 
@@ -157,6 +214,85 @@ function type_to_string(type)
 		case ITEM_TYPE.ring: { return "Ring"; } break;
 		case ITEM_TYPE.shoes: { return "Shoes"; } break;
 	}	
+}
+
+function stats_to_string(stats)
+{
+	if (ds_exists(stats, ds_type_map))
+	{
+		//show_debug_message(string(ds_map_find_first(stats)));
+		var _keys = ds_map_keys_to_array(stats);
+		var _str = "";
+		
+		for (var _z = 0; _z < array_length(_keys); _z++)
+		{
+			var _key = _keys[_z];
+			_str += string(_key) + " +" + string(stats[? _key]) + "\n";
+		}
+		
+		return _str;
+	}
+	else return "Empty!";
+}
+
+function apply_stats()
+{
+	with (gameControl)
+	{
+		//Reset the bonuses
+		reset_bonuses();
+			
+		//Add to the bonuses
+		//for every equipped item, for every bonus, add their stats to the appropriate variables.
+		for (var _x = 0; _x < 8; _x++)
+		{
+			var current_equipment = -1;
+				
+			//select proper equipment
+			switch (_x)
+			{
+				case 0: { current_equipment = equip_melee; }; break;
+				case 1: { current_equipment = equip_chest; }; break;
+				case 2: { current_equipment = equip_gloves; }; break;
+				case 3: { current_equipment = equip_helmet; }; break;
+				case 4: { current_equipment = equip_necklace; }; break;
+				case 5: { current_equipment = equip_ranged; }; break;
+				case 6: { current_equipment = equip_ring; }; break;
+				case 7: { current_equipment = equip_shoes; }; break;
+			}
+				
+			//add its bonuses
+			if (current_equipment != -1)
+			{
+				var stats = current_equipment.stats;
+	
+				if (ds_exists(stats, ds_type_map))
+				{
+					
+					var _keys = ds_map_keys_to_array(stats);
+					
+					for (var _z = 0; _z < array_length(_keys); _z++)
+					{
+						var key = _keys[_z];
+			
+						switch (key)
+						{
+							//Agility
+							case "Max Action Points": { bonus_movement_points_max += stats[? key]; } break;
+							case "Marble Value": { bonus_movement_points_marble_rate += stats[? key]; } break;
+							case "Marble Speed": { bonus_movement_points_marble_speed += stats[? key]; } break;
+							
+							//Fortitude
+							case "Max HP": { bonus_health_points_max += stats[? key]; } break;
+							case "Fill Amount": { bonus_health_points_rate += stats[? key]; } break;
+							case "Regeneration Speed": { bonus_health_points_speed += stats[? key]; } break;
+							case "Max Liquid": { bonus_health_points_liquid_max += stats[? key]; } break;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 function clear_slot()
