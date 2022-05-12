@@ -49,8 +49,8 @@ switch (game_turn)
 			{
 				movement_points -= 1;
 			
-				obj_player.x = x_mouse;
-				obj_player.y = y_mouse;
+				obj_player.target_x = x_mouse;
+				obj_player.target_y = y_mouse;
 				
 				give_xp(obj_player.x, obj_player.y-8, 4);
 			}

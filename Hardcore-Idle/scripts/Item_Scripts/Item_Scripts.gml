@@ -44,10 +44,10 @@ function generate_item()
 	if (_rng < 10) //resplendent
 		_rarity++;
 		
-	if (_rng == 0) //red
+	if (_rng == 1) //red
 		_rarity++;
 		
-	show_debug_message("rng is: " + string(_rng) + ", " + rarity_to_string(_rarity) + ", actual value: " + string(_rarity));
+	//show_debug_message("rng is: " + string(_rng) + ", " + rarity_to_string(_rarity) + ", actual value: " + string(_rarity));
 		
 	
 	//Pick our item type!
