@@ -78,7 +78,7 @@
   "nineSlice": null,
   "parent": {
     "name": "Menu_Section 2",
-    "path": "folders/Sprites/Menu_Section 2.yy",
+    "path": "folders/Sprites/UI/Menu_Section 2.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_button_inventory",

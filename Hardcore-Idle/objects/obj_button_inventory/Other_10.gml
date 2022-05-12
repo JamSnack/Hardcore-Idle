@@ -6,5 +6,8 @@ with (gameControl)
 	inventory_open = true;
 }
 
+//notification
+draw_notification = false;
+
 event_inherited();
 

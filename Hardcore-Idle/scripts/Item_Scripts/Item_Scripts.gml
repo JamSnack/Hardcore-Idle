@@ -181,6 +181,9 @@ function add_item(item_struct)
 	{
 		global.inventory[| _result].amt += item_struct.amt;
 	}
+	
+	//notify the player
+	obj_button_inventory.draw_notification = true;
 }
 
 function remove_item(item_struct, amt)
