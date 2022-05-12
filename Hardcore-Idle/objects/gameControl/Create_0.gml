@@ -191,6 +191,7 @@ function check_equip_slot(equip_struct, x, y, scale, type)
 		if (equip_struct != -1)
 		{ 
 			return_this = -1;
+			add_item(equip_struct);
 		}
 		else if (selected_slot != -1)
 		{
@@ -200,6 +201,11 @@ function check_equip_slot(equip_struct, x, y, scale, type)
 			{
 				//Return the data structure to use its data. We equipped the item!
 				return_this = _ite;
+				
+				global.inventory[| selected_slot].amt -= 1;
+				
+				if (global.inventory[| selected_slot].amt <= 0)
+					clear_slot(selected_slot);
 			}
 		}
 	}

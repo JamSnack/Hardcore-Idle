@@ -143,26 +143,29 @@ function generate_item()
 
 function find_item(item_struct)
 {
-	var _name = item_struct.name;
-	var _list_size = ds_list_size(global.inventory);
-	
-	if (_list_size > 0)
+	if (is_struct(item_struct))
 	{
-		for (var _index = 0; _index < _list_size; _index++)
+		var _name = item_struct.name;
+		var _list_size = ds_list_size(global.inventory);
+	
+		if (_list_size > 0)
 		{
-			var _it = global.inventory[| _index];
-		
-			if (_it.name == _name && _it.type == item_struct.type && _it.rarity == item_struct.rarity)
+			for (var _index = 0; _index < _list_size; _index++)
 			{
-				return _index;
-			}
+				var _it = global.inventory[| _index];
 		
-			if (_index + 1 == _list_size)
-			{
-				return -1;	
+				if (_it.name == _name && _it.type == item_struct.type && _it.rarity == item_struct.rarity)
+				{
+					return _index;
+				}
+		
+				if (_index + 1 == _list_size)
+				{
+					return -1;	
+				}
 			}
-		}
-	} else return -1;
+		} else return -1;
+	}
 }
 
 function add_item(item_struct)
@@ -178,6 +181,22 @@ function add_item(item_struct)
 	{
 		global.inventory[| _result].amt += item_struct.amt;
 	}
+}
+
+function remove_item(item_struct, amt)
+{
+	/*
+	var _result = find_item(item_struct);
+	
+	//If we find it, remove it
+	if (_result != -1)
+	{
+		global.inventory[| _result].amt -= amt;
+				
+		if (global.inventory[| _result].amt <= 0)
+			clear_slot(_result);	
+	}
+	*/
 }
 
 function drop_item(x, y, item_struct)
@@ -295,7 +314,9 @@ function apply_stats()
 	}
 }
 
-function clear_slot()
+function clear_slot(slot)
 {
 	//Properly dispose of the contents of an inventory slot. For use inside gameControl.
+	delete global.inventory[| slot]; //delete item struct
+	ds_list_delete(global.inventory, slot); //remove index
 }
