@@ -129,10 +129,10 @@ function get_turn_name(game_turn)
 	}
 }
 
-function give_xp(amt)
+function give_xp(x, y, amt)
 {
 	xp += amt;
-	create_pop_text(obj_player.x, obj_player.y-8, c_purple, c_black, 1, "+" + string(amt));
+	create_pop_text(x, y, c_purple, c_black, 1, "+" + string(amt));
 	
 	while (xp >= xp_max)
 	{
@@ -146,7 +146,7 @@ function give_xp(amt)
 		skill_points += 1;
 		
 		//level-up effects
-		create_pop_text(obj_player.x, obj_player.y, c_yellow, c_black, 1, "Level Up!");
+		create_pop_text(x, y, c_yellow, c_black, 1, "Level Up!");
 	}
 }
 
@@ -201,11 +201,8 @@ function check_equip_slot(equip_struct, x, y, scale, type)
 			{
 				//Return the data structure to use its data. We equipped the item!
 				return_this = _ite;
-				
-				global.inventory[| selected_slot].amt -= 1;
-				
-				if (global.inventory[| selected_slot].amt <= 0)
-					clear_slot(selected_slot);
+
+				clear_slot(selected_slot);
 			}
 		}
 	}

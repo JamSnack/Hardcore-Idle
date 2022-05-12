@@ -52,7 +52,7 @@ switch (game_turn)
 				obj_player.x = x_mouse;
 				obj_player.y = y_mouse;
 				
-				give_xp(4);
+				give_xp(obj_player.x, obj_player.y-8, 4);
 			}
 		}
 		
@@ -203,6 +203,24 @@ else if (mouse_check_button_released(mb_left))
 	equip_helmet   = check_equip_slot(equip_helmet,   _x3, 500, _scale, ITEM_TYPE.helmet);
 	equip_chest    = check_equip_slot(equip_chest,    _x3, 610, _scale, ITEM_TYPE.chest);
 	
+	
+	//If it didn't land in a slot, check the trash!
+	
+	//Trash
+	if (point_in_rectangle(gui_x_mouse, gui_y_mouse, obj_trash_slot.x, obj_trash_slot.y, obj_trash_slot.x + 64, obj_trash_slot.y + 64))
+	{
+		//grant XP
+		var _ite = global.inventory[| selected_slot];
+	
+		give_xp(mouse_x, mouse_y, _ite.amt*(_ite.tier*2 + _ite.rarity*10));
+	
+		//delete item
+		clear_slot(selected_slot);
+
+	}
+	
+	
+	//reset
 	selected_slot = -1;
 	
 	//Calculate stat bonuses

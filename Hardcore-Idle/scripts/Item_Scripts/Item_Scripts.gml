@@ -8,11 +8,12 @@ function create_item(name, amt, tooltip, sprite, rarity, type, stats)
 		rarity : rarity,
 		type : type,
 		stats : stats,
+		tier : gameControl.game_environment_difficulty,
 		notify: true, //Used for inventory notifications.
 		
 		to_string : function()
 		{
-			return ( string(name) + "\n" + type_to_string(type) + "\n" + rarity_to_string(rarity) + "\n\n" + stats_to_string(stats));
+			return ( string(name) + "\n" + type_to_string(type) + "\n" + rarity_to_string(rarity) + "\n" + "Tier " + string(tier) + "\n\n" + stats_to_string(stats));
 		}
 	}
 	
@@ -180,7 +181,12 @@ function add_item(item_struct)
 	}
 	else if (_result != -1)
 	{
-		global.inventory[| _result].amt += item_struct.amt;
+		var r_ite = global.inventory[| _result]; //resulting item
+		
+		//stack item if possible or make a new slot
+		if (r_ite.type == ITEM_TYPE.none)
+			r_ite.amt += item_struct.amt;
+		else ds_list_add(global.inventory, item_struct);
 	}
 	
 	//notify the player

@@ -111,7 +111,11 @@ if (inventory_open)
 				draw_sprite(_item_sprite, 0, _x + 16, _y + 16);
 				
 				//amt
-				draw_text_outlined_transformed(_x+25, _y+22, c_black, c_white, string(_item.amt), 0.7, 0.7, 0);
+				if (_item.amt != 1)
+					draw_text_outlined_transformed(_x+25, _y+22, c_black, c_white, string(_item.amt), 0.7, 0.7, 0);
+	
+				//item tier
+				draw_text_outlined_transformed(_x+4, _y+22, c_black, c_yellow, string(_item.tier), 0.7, 0.7, 0);
 				
 				//notification
 				if (_item.notify)
