@@ -28,11 +28,16 @@ else
 	else if (_facing >= 60 && _facing < 120)
 	{
 		//North
-		sprite_index = spr_player_front;
+		sprite_index = spr_player_back;
 	}
 	else if (_facing >= 120 && _facing < 225)
 	{
-		//North
-		sprite_index = spr_player_front;
+		//East
+		sprite_index = spr_player_side;
+		image_xscale = scale;
+	}
+	else if (_facing >= 225 && _facing < 315)
+	{
+		sprite_index = spr_player_front;	
 	}
 }

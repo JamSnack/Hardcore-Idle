@@ -11,4 +11,4 @@ target_y = y;
 scale = 1;
 image_xscale = scale;
 image_yscale = scale;
-anim_speed = 2;
+anim_speed = 1;

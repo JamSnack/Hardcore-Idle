@@ -66,7 +66,7 @@ if (inventory_open)
 	draw_equip_slot(equip_shoes, _x2, 610, _a, 0, _scale, ITEM_TYPE.shoes);
 
 	draw_equip_slot(equip_helmet, _x3, 500, _a, 0, _scale, ITEM_TYPE.helmet);
-	draw_sprite_ext(spr_player_front, 0, _x3 + 24, 555 + 24, _scale*2, _scale*2, 0, c_white, _a);//Player (lol)d
+	draw_sprite_ext(spr_player_front, 0, _x3 + 24, 555 + 24, _scale, _scale, 0, c_white, _a);//Player (lol)d
 	draw_equip_slot(equip_chest, _x3, 610, _a, 0, _scale, ITEM_TYPE.chest);
 	
 	//-- actual inventory part --
