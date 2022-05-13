@@ -95,7 +95,7 @@ switch (game_turn)
 	{
 		if (instance_number(ENEMY) < game_turn_amt)//(instance_number(ENEMY) < game_environment_difficulty)
 		{
-			instance_create_layer(choose(0, game_map_x2)+16, choose(0, game_map_y2)+16, "Instances", obj_enemy);	
+			instance_create_layer(choose(0, game_map_x2, floor(game_map_x2/2)+16)+16, choose(0, game_map_y2, floor(game_map_y2/2)+16)+16, "Instances", obj_enemy);	
 		}
 		
 		//We've gone through all the enemies, next turn!

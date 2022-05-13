@@ -2,6 +2,7 @@
   "resources": [
     {"id":{"name":"ENEMY","path":"objects/ENEMY/ENEMY.yy",},"order":0,},
     {"id":{"name":"spr_player_back","path":"sprites/spr_player_back/spr_player_back.yy",},"order":21,},
+    {"id":{"name":"spr_ui_background","path":"sprites/spr_ui_background/spr_ui_background.yy",},"order":8,},
     {"id":{"name":"efct_pop_text","path":"objects/efct_pop_text/efct_pop_text.yy",},"order":8,},
     {"id":{"name":"OBSTA","path":"objects/OBSTA/OBSTA.yy",},"order":1,},
     {"id":{"name":"spr_button_agility","path":"sprites/spr_button_agility/spr_button_agility.yy",},"order":1,},

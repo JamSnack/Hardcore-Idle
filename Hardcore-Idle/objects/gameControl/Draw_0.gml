@@ -3,24 +3,24 @@
 //Surfaces
 if (!surface_exists(surface_movement_grid))
 {
-	surface_movement_grid = surface_create(room_width, room_height);
+	surface_movement_grid = surface_create(game_map_x2, game_map_y2);
 	
 	surface_set_target(surface_movement_grid);
 	
 	// - room width and height in terms of cell_size
-	var room_h = floor(room_height/cell_size);
-	var room_w = floor(room_width/cell_size);
+	var room_h = floor(game_map_y2/cell_size);
+	var room_w = floor(game_map_x2/cell_size);
 		
 	draw_set_color(grid_color);
 	
-	for(var _x = 0; _x < room_w; _x++)
+	for(var _x = 2; _x <= room_w; _x++)
 	{
-		draw_line( _x*cell_size, 0, _x*cell_size, room_height);
+		draw_line( _x*cell_size, 32, _x*cell_size, game_map_y2);
 	}
 		
-	for(var _y = 0; _y < room_h; _y++)
+	for(var _y = 2; _y <= room_h; _y++)
 	{
-		draw_line( 0, _y*cell_size, room_width, _y*cell_size);
+		draw_line( 32, _y*cell_size, game_map_x2, _y*cell_size);
 	}
 	
 	surface_reset_target();
