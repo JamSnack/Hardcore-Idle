@@ -16,10 +16,13 @@ if (_s > 0)
 			ds_list_delete(balls, _i);
 			_s--; //this makes it work b/c ds_list_size needs to be dynamic but we only want to call the function once
 		
-			gameControl.movement_points += _ball.val;
+			if (global.game_over == false)
+			{
+				gameControl.movement_points += _ball.val;
 		
-			if (visible == true)
-				create_pop_text(x - sprite_width/2 + irandom(sprite_width), y - sprite_height/2 + irandom(sprite_height), c_green, c_black, 1, "+" + string(_ball.val));
+				if (visible == true)
+					create_pop_text(x - sprite_width/2 + irandom(sprite_width), y - sprite_height/2 + irandom(sprite_height), c_green, c_black, 1, "+" + string(_ball.val));
+			}
 			
 			delete _ball;
 		}

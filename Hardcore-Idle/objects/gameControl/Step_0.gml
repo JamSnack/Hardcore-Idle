@@ -246,6 +246,13 @@ if (inventory_open && inventory_animation < 1)
 else if (inventory_open == false && inventory_animation > 0)
 	inventory_animation -= 0.04;
 
+//----- DEATH MY MF -----
+if (health_points <= 0 && global.game_over = false)
+{
+	health_points = 0;
+	movement_points = 0;
+	global.game_over = true;
+}
 	
 //------IDLE STUFF-------
 // - movement points

@@ -1,6 +1,8 @@
 /// @description Init
 show_debug_overlay(true);
 
+global.game_over = false;
+
 //-- init skills
 movement_points_max = 1;
 movement_points = movement_points_max;
